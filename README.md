@@ -1,10 +1,6 @@
 # PLATOON_APIs
 
-
-## Apps metadata
-This API retrieves the metadata for the registered apps. It receives as an input the URI of an APP, and generates a JSON-LD output that describes the input App using Dcat vocabulary.
-
-The API is docker ready and can be run using the following command:
+The APIs are docker ready and can be run using the following command:
 
 ```
 docker run -d --name platoon_ids_api -p 18877:5000 -e ENDPOINT='http://node2.research.tib.eu:51112/sparql' sdmtib/platoon_ids_api:2.3
@@ -12,14 +8,15 @@ docker run -d --name platoon_ids_api -p 18877:5000 -e ENDPOINT='http://node2.res
 ```
 The ENDPOINT parameter is the URL of the SPARQL endpoint that contains the Knowledge Gragh of the Apps.
 
-Here is an example of a cURL request to generate the metadata related to the "PUPIN-RES-PROD" App
+## Apps metadata API
+This API retrieves the metadata for the registered apps. It receives as an input the ID of an APP, and generates a JSON-LD output that describes the input App using Dcat vocabulary.
+
+
+
+Here is an example of a cURL request to generate the metadata related to the App 1
 
 ```
-curl --location --request GET 'https://labs.tib.eu/sdm/platoon_metadata/get_apps_metadata?id=1' \
---header 'Content-Type: application/json' \
---data-raw '{
-"dataset": "<https://w3id.org/platoon/entity/PUPIN-RES-PROD>"
-}'
+curl --location --request GET 'https://labs.tib.eu/sdm/platoon_metadata/get_apps_metadata?id=1'
 ```
 
 The generated output is:
@@ -127,3 +124,194 @@ The generated output is:
 }
 
 ```
+
+## Datasets Description API
+
+This API retrieves the description of dataset in the PLATOON project. It receives as an input the URI of a dataset, and generates as an output a JSON-LD that describes the dataset using the Dcat vocabulary.
+
+Here is an example of a cURL request to generate the metadata related to the "PUPIN-RES-PROD" dataset
+
+```
+curl --location --request POST 'https://labs.tib.eu/sdm/platoon_metadata/get_ids_description' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"dataset": "<https://w3id.org/platoon/entity/PUPIN-RES-PROD>"
+}'
+```
+
+The generated output is:
+
+```
+{
+    "@context": {
+        "ids": "https://w3id.org/idsa/core/",
+        "idsc": "https://w3id.org/idsa/code/",
+        "part1": "https://im.internationaldataspaces.org/participant/part1",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "time": "http://www.w3.org/2006/time#",
+        "dct": "http://purl.org/dc/terms/"
+    },
+    "@type": "https://w3id.org/idsa/core/Resource",
+    "@id": "<https://w3id.org/platoon/entity/PUPIN-RES-PROD>",
+    "title": [
+        {
+            "@value": "Historical Wind Power Production Measurements",
+            "@language": "en"
+        }
+    ],
+    "types": [
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.w3.org/2006/time#Interval"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.w3.org/2006/time#TemporalEntity"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.w3.org/2006/time#Instant"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/FeatureOfInterest"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/WindFarm"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/ElectricPowerSystem"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/ElectricPowerProducer"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.semanticweb.org/ontologies/2011/9/Ontology1318785573683.owl#WindTurbine"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.iec.ch/TC57/CIM#WindGeneratingUnit"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.iec.ch/TC57/CIM#WindPlantIEC"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/OffshoreWindTurbine"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.iec.ch/TC57/CIM#GeneratingUnit"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.iec.ch/TC57/CIM#Plant"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/AirTemperatureProperty"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/AirTemperatureEvaluation"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/WindDirectionProperty"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.semanticweb.org/ontologies/2011/9/Ontology1318785573683.owl#WindDirection"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/WindDirectionEvaluation"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/WeatherStation"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/ForecastOfElectricProductionProperty"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/ForecastOfActivePower"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/ElectricPowerProperty"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://saref.etsi.org/core/Power"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.iec.ch/TC57/CIM#ActivePower"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/ForecastOfActivePowerEvaluation"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/ForecastOfElectricPowerEvaluation"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/ElectricPowerEvaluation"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/ActivePowerEvaluation"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/platoon/SolarInsolationProperty"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/PressureProperty"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "http://www.semanticweb.org/ontologies/2011/9/Ontology1318785573683.owl#Pressure"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/PressureEvaluation"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/WindSpeedProperty"
+        },
+        {
+            "@type": "ids:contentType",
+            "@id": "https://w3id.org/seas/WindSpeedEvaluation"
+        }
+    ],
+    "publisher": {
+        "@value": "IMP"
+    },
+    "language": {
+        "@type": "ids:Language",
+        "@id": "http://id.loc.gov/vocabulary/iso639-1/ENG"
+    },
+    "accessRights": {
+        "@value": "Private",
+    },
+    "temporalResolution": {
+        "@value": "could cover period of couple of previous years",
+    }
+}
+```
+
