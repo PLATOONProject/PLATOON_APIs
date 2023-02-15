@@ -1,0 +1,12 @@
+docker build -t sdmtib/platoon_ids_api:2.3 .
+
+
+docker push sdmtib/platoon_ids_api:2.3
+
+docker stop platoon_ids_api 
+
+docker rm platoon_ids_api 
+
+docker run -d --name platoon_ids_api -p 18877:5000 -e ENDPOINT='http://node2.research.tib.eu:51112/sparql' sdmtib/platoon_ids_api:2.3
+
+docker image pull sdmtib/platoon_ids_api:2.3
